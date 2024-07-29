@@ -128,11 +128,28 @@ table th {
 }
 
 .token-logo {
-    width: 30px;
-    height: 30px;
+    width: 40px; /* Ajustez la taille selon vos besoins */
+    height: 40px;
     margin-right: 10px;
-    vertical-align: middle;
 }
+
+.token-info {
+    display: flex;
+    align-items: center;
+}
+
+.token-info div {
+    margin-left: 10px;
+}
+
+.token-info span {
+    display: block;
+}
+
+.token-info span.symbol {
+    font-weight: bold;
+}
+
 
 .social-icons a {
     display: inline-block;
