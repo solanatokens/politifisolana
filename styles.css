@@ -31,13 +31,7 @@ header {
     text-align: right;
 }
 
-.brought-to-you p {
-    margin: 0;
-    display: flex;
-    align-items: center;
-}
-
-.profile {
+.brought-to-you .profile {
     display: flex;
     align-items: center;
 }
@@ -54,13 +48,6 @@ header {
     height: 20px;
     margin-left: 10px;
     border-radius: 50%;
-}
-
-.tab-icon, .section-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    vertical-align: middle;
 }
 
 .note {
@@ -126,13 +113,14 @@ table th {
     vertical-align: middle;
 }
 
-.social-icons {
-    display: flex;
-    align-items: center;
+.social-icons a {
+    display: inline-block;
 }
 
 .social-icons img {
     width: 20px;
     height: 20px;
-    margin: 0 5px;
+    margin-left: 5px;
+    border-radius: 50%;
+    vertical-align: middle;
 }
