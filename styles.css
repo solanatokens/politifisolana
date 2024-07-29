@@ -199,13 +199,14 @@ table th {
 .block-content {
     flex: 1;
 }
-
 .block h2 {
     margin: 0;
     font-size: 1.5em;
+    margin-bottom: 10px; /* Ajoutez cette ligne pour créer un espace entre le titre et le contenu */
 }
 
 .block p {
     margin: 5px 0 0;
     font-size: 1.2em;
+    word-break: break-word; /* Ajoutez cette ligne si vous souhaitez forcer un retour à la ligne si nécessaire */
 }
