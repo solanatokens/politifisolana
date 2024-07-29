@@ -279,4 +279,9 @@ body > div > header > div.brought-to-you > div > div > div{
         padding: 10px;
         text-align: center;
     }
+
+    .countries.active table th:nth-child(6),
+    .countries.active table td:nth-child(6) {
+        display: none; /* Hide the "Community Note" column on mobile */
+    }
 }
