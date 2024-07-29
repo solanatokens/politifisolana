@@ -126,51 +126,60 @@
 
     <script>
         function formatNumber(number) {
-            if (number >= 1000000) {
-                return (number / 1000000).toFixed(1) + 'M';
-            } else if (number >= 1000) {
-                return (number / 1000).toFixed(1) + 'K';
-            } else {
-                return number;
-            }
+    if (number >= 1000000) {
+        return (number / 1000000).toFixed(1) + 'M';
+    } else if (number >= 1000) {
+        return (number / 1000).toFixed(1) + 'K';
+    } else {
+        return number;
+    }
+}
+
+async function fetchData() {
+    const tokens = [
+        { name: 'Trump', contract: '4h8LjZWUfUQVgbEZ29UzTuGXNW6rwrJis78ZU66ekkPV' },
+        { name: 'Kamala', contract: '2tvQMBiB4aoxsXhgAPWSUpE1Cas5eSU3bNWa6p6Rpump' },
+        { name: 'MemeToken', contract: '8pWBWofJZK8DVS1xvsEobaFKQ3pjiqPwiWwH2TWrccvZ' }
+    ];
+
+    let totalMarketCap = 0;
+    let total24hVolume = 0;
+    let topGainerMc = { name: '', change: -Infinity };
+    let topGainerVolume = { name: '', volume: -Infinity };
+    let topMarketCap = { name: '', marketCap: -Infinity };
+
+    for (const token of tokens) {
+        const data = await fetchTokenData(token.contract);
+
+        if (data.marketCap !== 'N/A') {
+            totalMarketCap += parseFloat(data.marketCap);
+        }
+        if (data.volume24h !== 'N/A') {
+            total24hVolume += parseFloat(data.volume24h);
         }
 
-        function updateCountdown() {
-            const electionDate = new Date('November 5, 2024 00:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = electionDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown').innerText = `${days} D, ${hours} H, ${minutes} M, ${seconds} S`;
-
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('countdown').innerText = 'Elections are over';
-            }
+        if (data.priceChange24h !== 'N/A' && parseFloat(data.priceChange24h) > topGainerMc.change) {
+            topGainerMc = { name: data.name, change: parseFloat(data.priceChange24h) };
         }
 
-        const countdownInterval = setInterval(updateCountdown, 1000);
-
-        async function fetchData() {
-            // Remplacez ces valeurs par les valeurs calculées réelles
-            const totalMarketCap = 10000000; // Remplacez par le calcul réel
-            const total24hVolume = 500000; // Remplacez par le calcul réel
-            const topGainerMc = 'Token A'; // Remplacez par les données réelles des tokens
-            const topGainerVolume = 'Token B'; // Remplacez par les données réelles des tokens
-            const topMarketCap = 'Token C'; // Remplacez par les données réelles des tokens
-
-            document.getElementById('total-market-cap').innerText = `$${formatNumber(totalMarketCap)}`;
-            document.getElementById('total-24h-volume').innerText = `$${formatNumber(total24hVolume)}`;
-            document.getElementById('top-gainer-mc').innerText = topGainerMc;
-            document.getElementById('top-gainer-volume').innerText = topGainerVolume;
-            document.getElementById('top-market-cap').innerText = topMarketCap;
+        if (data.volume24h !== 'N/A' && parseFloat(data.volume24h) > topGainerVolume.volume) {
+            topGainerVolume = { name: data.name, volume: parseFloat(data.volume24h) };
         }
 
-        fetchData();
+        if (data.marketCap !== 'N/A' && parseFloat(data.marketCap) > topMarketCap.marketCap) {
+            topMarketCap = { name: data.name, marketCap: parseFloat(data.marketCap) };
+        }
+    }
+
+    document.getElementById('total-market-cap').innerText = `$${formatNumber(totalMarketCap)}`;
+    document.getElementById('total-24h-volume').innerText = `$${formatNumber(total24hVolume)}`;
+    document.getElementById('top-gainer-mc').innerText = topGainerMc.name;
+    document.getElementById('top-gainer-volume').innerText = topGainerVolume.name;
+    document.getElementById('top-market-cap').innerText = topMarketCap.name;
+}
+
+fetchData();
+
 
         const tokens = {
             republican: [
