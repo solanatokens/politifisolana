@@ -47,6 +47,7 @@ header {
 .social-icons img {
     width: 20px;
     margin-left: 10px;
+    border-radius: 50%;
 }
 
 .note {
