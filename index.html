@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PolitiFi Solana</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -14,7 +19,7 @@
             </div>
             <div class="brought-to-you">
                 <p>Brought to You by</p>
-                <p>Cryptoq</p>
+                <p><strong>Cryptoq</strong> <img src="path/to/logo.png" alt="Cryptoq Logo"></p>
                 <div class="social-icons">
                     <a href="https://x.com/crypto__coq"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>
                     <a href="https://telegram.me/solanactoteam"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>
@@ -25,14 +30,11 @@
         <p class="note">Note : if you didn't find your favorite coins here please <a href="https://x.com/crypto__coq">contact me on x</a> to add/update it</p>
 
         <section class="tabs">
-            <button class="tab active">🔥Countries</button>
-            <button class="tab">S-Countries</button>
-            <button class="tab">Memes</button>
-            <button class="tab">Events</button>
-            <button class="tab">Managers</button>
+            <button class="tab active" onclick="showTab('republican')">Republican</button>
+            <button class="tab" onclick="showTab('democratic')">Democratic</button>
         </section>
 
-        <section class="countries">
+        <section id="republican" class="countries active">
             <table>
                 <thead>
                     <tr>
@@ -44,42 +46,117 @@
                         <th>Community Note</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="republican-table">
+                    <!-- Tokens will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="democratic" class="countries">
+            <table>
+                <thead>
                     <tr>
-                        <td>
-                            <img src="path/to/american-coin.png" alt="American Coin">
-                            American Coin<br>
-                            <span>$USA</span>
-                        </td>
-                        <td>10.0M$</td>
-                        <td class="negative">-7.04%</td>
-                        <td>$701.0K</td>
-                        <td>
-                            <a href="#"><img src="path/to/telegram-icon.png" alt="Telegram"></a>
-                            <a href="#"><img src="path/to/twitter-icon.png" alt="Twitter"></a>
-                            <a href="#"><img src="path/to/other-icon.png" alt="Other"></a>
-                        </td>
-                        <td>Patriots in control</td>
+                        <th>Countries</th>
+                        <th>Mcap</th>
+                        <th>24h %</th>
+                        <th>Liquidity</th>
+                        <th>Socials</th>
+                        <th>Community Note</th>
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="path/to/tuvaluan-coin.png" alt="Tuvaluan Coin">
-                            Tuvaluan Coin<br>
-                            <span>$TVALL</span>
-                        </td>
-                        <td>702.6K$</td>
-                        <td class="negative">-1.31%</td>
-                        <td>$100.5K</td>
-                        <td>
-                            <a href="#"><img src="path/to/telegram-icon.png" alt="Telegram"></a>
-                            <a href="#"><img src="path/to/twitter-icon.png" alt="Twitter"></a>
-                            <a href="#"><img src="path/to/other-icon.png" alt="Other"></a>
-                        </td>
-                        <td>Community note</td>
-                    </tr>
+                </thead>
+                <tbody id="democratic-table">
+                    <!-- Tokens will be dynamically inserted here -->
                 </tbody>
             </table>
         </section>
     </div>
+
+    <script>
+        const tokens = {
+            republican: [
+                { name: 'Trump', contract: '4h8LjZWUfUQVgbEZ29UzTuGXNW6rwrJis78ZU66ekkPV' }
+            ],
+            democratic: [
+                { name: 'Kamala', contract: '2tvQMBiB4aoxsXhgAPWSUpE1Cas5eSU3bNWa6p6Rpump' }
+            ]
+        };
+
+        function showTab(tab) {
+            document.querySelectorAll('.countries').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tab).classList.add('active');
+            document.querySelectorAll('.tab').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
+        }
+
+        async function fetchTokenData(contract) {
+            const url = `https://api.dexscreener.com/latest/dex/tokens/${contract}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const tokenData = data.pairs.find(pair => pair.baseToken.address.toLowerCase() === contract.toLowerCase());
+                return {
+                    name: tokenData ? tokenData.baseToken.name : 'N/A',
+                    symbol: tokenData ? tokenData.baseToken.symbol : 'N/A',
+                    marketCap: tokenData ? tokenData.fdv : 'N/A',
+                    volume24h: tokenData ? tokenData.volume.h24 : 'N/A',
+                    priceChange24h: tokenData ? tokenData.priceChange.h24 : 'N/A',
+                    liquidity: tokenData ? tokenData.liquidity.usd : 'N/A',
+                    socials: tokenData ? tokenData.info.socials : [],
+                    communityNote: tokenData ? 'Community note' : 'N/A'
+                };
+            } catch (error) {
+                console.error('Error fetching token data:', error);
+                return {
+                    name: 'N/A',
+                    symbol: 'N/A',
+                    marketCap: 'N/A',
+                    volume24h: 'N/A',
+                    priceChange24h: 'N/A',
+                    liquidity: 'N/A',
+                    socials: [],
+                    communityNote: 'N/A'
+                };
+            }
+        }
+
+        async function displayTokens() {
+            const republicanTable = document.getElementById('republican-table');
+            const democraticTable = document.getElementById('democratic-table');
+
+            for (const token of tokens.republican) {
+                const data = await fetchTokenData(token.contract);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${data.name}<br><span>${data.symbol}</span></td>
+                    <td>${data.marketCap}</td>
+                    <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+                    <td>${data.liquidity}</td>
+                    <td>${data.socials.map(social => `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`).join(' ')}</td>
+                    <td>${data.communityNote}</td>
+                `;
+                republicanTable.appendChild(row);
+            }
+
+            for (const token of tokens.democratic) {
+                const data = await fetchTokenData(token.contract);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${data.name}<br><span>${data.symbol}</span></td>
+                    <td>${data.marketCap}</td>
+                    <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+                    <td>${data.liquidity}</td>
+                    <td>${data.socials.map(social => `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`).join(' ')}</td>
+                    <td>${data.communityNote}</td>
+                `;
+                democraticTable.appendChild(row);
+            }
+        }
+
+        displayTokens();
+    </script>
 </body>
 </html>
