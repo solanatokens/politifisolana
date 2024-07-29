@@ -11,7 +11,7 @@
     <div class="container">
         <header>
             <div class="title">
-                 <img src="https://securingdemocracy.gmfus.org/wp-content/uploads/2023/07/shutterstock_2327347089-scaled.jpg" alt="Elections Logo" class="block-icon">
+                <img src="https://securingdemocracy.gmfus.org/wp-content/uploads/2023/07/shutterstock_2327347089-scaled.jpg" alt="Elections Logo" class="block-icon">
                 <h1>PolitiFi Solana</h1>
             </div>
             <div class="brought-to-you">
@@ -91,7 +91,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Countries</th>
+                        <th>Tokens</th>
                         <th>Mcap</th>
                         <th>24h %</th>
                         <th>Liquidity</th>
@@ -109,7 +109,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Countries</th>
+                        <th>Tokens</th>
                         <th>Mcap</th>
                         <th>24h %</th>
                         <th>Liquidity</th>
@@ -162,18 +162,33 @@
             const data = await response.json();
             console.log(`Fetched data for contract ${contract}:`, data);
             const tokenData = data.pairs.find(pair => pair.baseToken.address.toLowerCase() === contract.toLowerCase());
-            return {
-                name: tokenData ? tokenData.baseToken.name : 'N/A',
-                symbol: tokenData ? tokenData.baseToken.symbol : 'N/A',
-                logo: tokenData ? tokenData.info.imageUrl : '',
-                marketCap: tokenData ? tokenData.fdv : 'N/A',
-                volume24h: tokenData ? tokenData.volume.h24 : 'N/A',
-                priceChange24h: tokenData ? tokenData.priceChange.h24 : 'N/A',
-                liquidity: tokenData ? tokenData.liquidity.usd : 'N/A',
-                socials: tokenData ? tokenData.info.socials : [],
-                communityNote: tokenData ? 'Community note' : 'N/A',
-                url: `https://dexscreener.com/solana/${contract}`
-            };
+            if (tokenData) {
+                return {
+                    name: tokenData.baseToken.name,
+                    symbol: tokenData.baseToken.symbol,
+                    logo: tokenData.info.imageUrl || '',
+                    marketCap: tokenData.fdv || 'N/A',
+                    volume24h: tokenData.volume.h24 || 'N/A',
+                    priceChange24h: tokenData.priceChange.h24 || 'N/A',
+                    liquidity: tokenData.liquidity.usd || 'N/A',
+                    socials: tokenData.info.socials || [],
+                    communityNote: 'Community note',
+                    url: `https://dexscreener.com/solana/${contract}`
+                };
+            } else {
+                return {
+                    name: 'N/A',
+                    symbol: 'N/A',
+                    logo: '',
+                    marketCap: 'N/A',
+                    volume24h: 'N/A',
+                    priceChange24h: 'N/A',
+                    liquidity: 'N/A',
+                    socials: [],
+                    communityNote: 'N/A',
+                    url: `https://dexscreener.com/solana/${contract}`
+                };
+            }
         } catch (error) {
             console.error(`Error fetching data for contract ${contract}:`, error);
             return {
