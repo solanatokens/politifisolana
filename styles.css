@@ -163,9 +163,9 @@ table th {
     vertical-align: middle;
 }
 
-#republican-table > tr > td.social-icons > a:nth-child(3) > img {
-    width: 25px;
-    height: 25px;
+#republican-table > tr > td.social-icons > a:nth-child(3) > img,#democratic > tr > td.social-icons > a:nth-child(3) > img,#meme > tr > td.social-icons > a:nth-child(3) > img {
+    width: 30px;
+    height: 30px;
 }
 
 body > div > header > div.brought-to-you > div > div > div{
