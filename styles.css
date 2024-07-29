@@ -43,9 +43,16 @@ header {
     height: 40px;
     border-radius: 50%;
 }
+.tab-icon, .section-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
 
 .social-icons img {
     width: 20px;
+    height: 20px;
     margin-left: 10px;
     border-radius: 50%;
 }
