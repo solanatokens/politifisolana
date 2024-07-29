@@ -26,6 +26,7 @@ header {
 .title h1 {
     margin-right: 10px;
 }
+
 .brought-to-you {
     text-align: center;
     margin-bottom: 20px;
@@ -44,7 +45,7 @@ header {
 
 .profile-info p {
     margin: 0;
-    font-size: 1.25em; /* Adjust as needed */
+    font-size: 1.25em;
     font-weight: bold;
 }
 
@@ -60,14 +61,6 @@ header {
 .profile-logo {
     width: 70px;
     height: 70px;
-    border-radius: 50%;
-}
-
-
-.social-icons img {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
     border-radius: 50%;
 }
 
@@ -128,7 +121,7 @@ table th {
 }
 
 .token-logo {
-    width: 40px; /* Ajustez la taille selon vos besoins */
+    width: 40px;
     height: 40px;
     margin-right: 10px;
 }
@@ -150,30 +143,21 @@ table th {
     font-weight: bold;
 }
 
-
 .social-icons a {
     display: inline-block;
 }
 
 .social-icons img {
-    width: 20px;
-    height: 20px;
-    margin-left: 5px;
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
     border-radius: 50%;
     vertical-align: middle;
 }
 
-#republican-table > tr > td.social-icons > a:nth-child(3) > img {
-    width: 25px;
-    height: 25px;
-}
-
-body > div > header > div.brought-to-you > div > div > div{
-    padding-top:5px;}
-
 .token-placeholder {
     background-color: #e0e0e0;
-    height: 50px; /* Ajustez la hauteur selon vos besoins */
+    height: 50px;
 }
 
 .top-section {
