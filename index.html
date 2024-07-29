@@ -304,136 +304,76 @@
 
     // Supprimer les lignes de faux tokens après avoir récupéré les données réelles
     async function fetchTokenData(contract) {
-    const url = `https://api.dexscreener.com/latest/dex/tokens/${contract}`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const tokenData = data.pairs.find(pair => pair.baseToken.address.toLowerCase() === contract.toLowerCase());
-        return {
-            name: tokenData ? tokenData.baseToken.name : 'N/A',
-            symbol: tokenData ? tokenData.baseToken.symbol : 'N/A',
-            logo: tokenData ? tokenData.info.imageUrl : '',
-            marketCap: tokenData ? parseFloat(tokenData.fdv) : 'N/A',
-            volume24h: tokenData ? parseFloat(tokenData.volume.h24) : 'N/A',
-            priceChange24h: tokenData ? parseFloat(tokenData.priceChange.h24) : 'N/A',
-            liquidity: tokenData ? parseFloat(tokenData.liquidity.usd) : 'N/A',
-            socials: tokenData ? tokenData.info.socials : [],
-            communityNote: tokenData ? 'Community note' : 'N/A',
-            dexUrl: `https://dexscreener.com/solana/${contract}`
-        };
-    } catch (error) {
-        console.error('Error fetching token data:', error);
-        return {
-            name: 'N/A',
-            symbol: 'N/A',
-            logo: '',
-            marketCap: 'N/A',
-            volume24h: 'N/A',
-            priceChange24h: 'N/A',
-            liquidity: 'N/A',
-            socials: [],
-            communityNote: 'N/A',
-            dexUrl: `https://dexscreener.com/solana/${contract}`
-        };
-    }
-}
-
-async function displayTokens() {
-    const republicanTable = document.getElementById('republican-table');
-    const democraticTable = document.getElementById('democratic-table');
-    const memeTable = document.getElementById('meme-table');
-
-    const placeholders = 5;
-    for (let i = 0; i < placeholders; i++) {
-        const row = document.createElement('tr');
-        row.classList.add('token-placeholder');
-        row.innerHTML = `<td colspan="6"></td>`;
-        republicanTable.appendChild(row.cloneNode(true));
-        democraticTable.appendChild(row.cloneNode(true));
-        memeTable.appendChild(row.cloneNode(true));
-    }
-
-    const tokens = [
-        ...tokens.republican,
-        ...tokens.democratic,
-        ...tokens.meme
-    ];
-
-    let totalMarketCap = 0;
-    let total24hVolume = 0;
-    let topGainerMc = { name: '', change: -Infinity };
-    let topGainerVolume = { name: '', volume: -Infinity };
-    let topMarketCap = { name: '', marketCap: -Infinity };
-
-    const tokenDataList = [];
-
-    for (const token of tokens) {
-        const data = await fetchTokenData(token.contract);
-        tokenDataList.push(data);
-
-        if (data.marketCap !== 'N/A') {
-            totalMarketCap += data.marketCap;
-        }
-        if (data.volume24h !== 'N/A') {
-            total24hVolume += data.volume24h;
-        }
-
-        if (data.priceChange24h !== 'N/A' && data.priceChange24h > topGainerMc.change) {
-            topGainerMc = { name: data.name, change: data.priceChange24h };
-        }
-
-        if (data.volume24h !== 'N/A' && data.volume24h > topGainerVolume.volume) {
-            topGainerVolume = { name: data.name, volume: data.volume24h };
-        }
-
-        if (data.marketCap !== 'N/A' && data.marketCap > topMarketCap.marketCap) {
-            topMarketCap = { name: data.name, marketCap: data.marketCap };
+        const url = `https://api.dexscreener.com/latest/dex/tokens/${contract}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data); // Debug output
+            const tokenData = data.pairs.find(pair => pair.baseToken.address.toLowerCase() === contract.toLowerCase());
+            return {
+                name: tokenData ? tokenData.baseToken.name : 'N/A',
+                symbol: tokenData ? tokenData.baseToken.symbol : 'N/A',
+                logo: tokenData ? tokenData.info.imageUrl : '',
+                marketCap: tokenData ? tokenData.fdv : 'N/A',
+                volume24h: tokenData ? tokenData.volume.h24 : 'N/A',
+                priceChange24h: tokenData ? tokenData.priceChange.h24 : 'N/A',
+                liquidity: tokenData ? tokenData.liquidity.usd : 'N/A',
+                socials: tokenData ? tokenData.info.socials : [],
+                communityNote: tokenData ? 'Community note' : 'N/A',
+                dexUrl: `https://dexscreener.com/solana/${contract}`
+            };
+        } catch (error) {
+            console.error('Error fetching token data:', error);
+            return {
+                name: 'N/A',
+                symbol: 'N/A',
+                logo: '',
+                marketCap: 'N/A',
+                volume24h: 'N/A',
+                priceChange24h: 'N/A',
+                liquidity: 'N/A',
+                socials: [],
+                communityNote: 'N/A'
+            };
         }
     }
 
-    document.getElementById('total-market-cap').innerText = `$${formatNumber(totalMarketCap)}`;
-    document.getElementById('total-24h-volume').innerText = `$${formatNumber(total24hVolume)}`;
-    document.getElementById('top-gainer-mc').innerText = topGainerMc.name;
-    document.getElementById('top-gainer-volume').innerText = topGainerVolume.name;
-    document.getElementById('top-market-cap').innerText = topMarketCap.name;
-
-    // Sorting token data by market cap
-    tokenDataList.sort((a, b) => b.marketCap - a.marketCap);
-
-    const republicanTokens = tokenDataList.filter(token => tokens.republican.some(t => t.contract === token.contract));
-    const democraticTokens = tokenDataList.filter(token => tokens.democratic.some(t => t.contract === token.contract));
-    const memeTokens = tokenDataList.filter(token => tokens.meme.some(t => t.contract === token.contract));
-
-    await populateTable(republicanTable, republicanTokens);
-    await populateTable(democraticTable, democraticTokens);
-    await populateTable(memeTable, memeTokens);
+          function formatMarketCap(value) {
+    if (value >= 1e6) {
+        return (value / 1e6).toFixed(2) + 'M';
+    } else if (value >= 1e3) {
+        return (value / 1e3).toFixed(2) + 'K';
+    } else {
+        return value.toString();
+    }
 }
 
-function removePlaceholders(table) {
-    const placeholders = table.querySelectorAll('.token-placeholder');
-    placeholders.forEach(placeholder => placeholder.remove());
-}
 
+    function removePlaceholders(table) {
+        const placeholders = table.querySelectorAll('.token-placeholder');
+        placeholders.forEach(placeholder => placeholder.remove());
+    }
 async function populateTable(table, tokens) {
     for (const token of tokens) {
+        const data = await fetchTokenData(token.contract);
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
                 <div style="display: flex; align-items: center;">
-                    <img src="${token.logo}" alt="${token.name} Logo" class="token-logo">
+                    <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
                     <div style="margin-left: 10px;">
                         <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
-                            ${token.name}<br>
-                            <span style="font-weight: bold;">$${token.symbol}</span>
+                            ${data.name}<br>
+                            <span style="font-weight: bold;">$${data.symbol}</span>
                         </span>
                     </div>
                 </div>
             </td>
-            <td>${formatMarketCap(token.marketCap)}</td>
-            <td class="${token.priceChange24h >= 0 ? 'positive' : 'negative'}">${token.priceChange24h}%</td>
-            <td>${formatMarketCap(token.liquidity)}</td>
+            <td>${formatMarketCap(data.marketCap)}</td>
+            <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+            <td>${formatMarketCap(data.liquidity)}</td>
             <td class="social-icons">
-                ${token.socials.map(social => {
+                ${data.socials.map(social => {
                     if (social.type === 'twitter') {
                         return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter" style="width: 25px; height: 25px;"></a>`;
                     } else if (social.type === 'telegram') {
@@ -442,18 +382,23 @@ async function populateTable(table, tokens) {
                         return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
                     }
                 }).join(' ')}
-                <a href="${token.dexUrl}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener" style="width: 25px; height: 25px;"></a>
+                <a href="${data.dexUrl}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener" style="width: 25px; height: 25px;"></a>
             </td>
-            <td>${token.communityNote}</td>
+            <td>${data.communityNote}</td>
         `;
         table.appendChild(row);
     }
     removePlaceholders(table);
 }
 
-displayTokens();
 
+    await populateTable(republicanTable, tokens.republican);
+    await populateTable(democraticTable, tokens.democratic);
+    await populateTable(memeTable, tokens.meme);
+}
+
+displayTokens();
 
     </script>
 </body>
-</html>
+</html> 
