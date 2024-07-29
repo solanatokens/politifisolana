@@ -18,22 +18,19 @@
                 <div class="profile">
                     <p><strong>Cryptoq</strong> <img src="https://pbs.twimg.com/profile_images/1781464826935451648/ASO_mzgr_400x400.jpg" alt="Cryptoq Logo"></p>
                     <div class="social-icons">
-                        <a href="https://x.com/crypto__coq"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>
-                        <a href="https://telegram.me/solanactoteam"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>
+                        <a href="https://x.com/crypto__coq" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>
+                        <a href="https://telegram.me/solanactoteam" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>
                     </div>
                 </div>
             </div>
         </header>
 
-        <p class="note">Note : if you didn't find your favorite coins here please <a href="https://x.com/crypto__coq">contact me on x</a> to add/update it</p>
+        <p class="note">Note : if you didn't find your favorite coins here please <a href="https://x.com/crypto__coq" target="_blank">contact me on x</a> to add/update it</p>
 
         <section class="tabs">
-            <button class="tab active" onclick="showTab('republican')">Republican
-            </button>
-            <button class="tab" onclick="showTab('democratic')">Democratic
-            </button>
-            <button class="tab" onclick="showTab('meme')">Meme
-            </button>
+            <button class="tab active" onclick="showTab('republican')">Republican</button>
+            <button class="tab" onclick="showTab('democratic')">Democratic</button>
+            <button class="tab" onclick="showTab('meme')">Meme</button>
         </section>
 
         <section id="republican" class="countries active">
@@ -137,7 +134,8 @@
                     priceChange24h: tokenData ? tokenData.priceChange.h24 : 'N/A',
                     liquidity: tokenData ? tokenData.liquidity.usd : 'N/A',
                     socials: tokenData ? tokenData.info.socials : [],
-                    communityNote: tokenData ? 'Community note' : 'N/A'
+                    communityNote: tokenData ? 'Community note' : 'N/A',
+                    url: `https://dexscreener.com/solana/${contract}`
                 };
             } catch (error) {
                 console.error('Error fetching token data:', error);
@@ -150,7 +148,8 @@
                     priceChange24h: 'N/A',
                     liquidity: 'N/A',
                     socials: [],
-                    communityNote: 'N/A'
+                    communityNote: 'N/A',
+                    url: `https://dexscreener.com/solana/${contract}`
                 };
             }
         }
@@ -165,7 +164,6 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
-                        <img src="https://solanatokens.github.io/politifisolana/republican.png" alt="Republican" class="section-icon">
                         <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
                         <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
                             ${data.name}<br><span>${data.symbol}</span>
@@ -196,7 +194,6 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
-                        <img src="https://solanatokens.github.io/politifisolana/donkey.jpg" alt="Democratic" class="section-icon">
                         <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
                         <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
                             ${data.name}<br><span>${data.symbol}</span>
@@ -227,7 +224,6 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
-                        <img src="https://solanatokens.github.io/politifisolana/meme.png" alt="Meme" class="section-icon">
                         <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
                         <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
                             ${data.name}<br><span>${data.symbol}</span>
