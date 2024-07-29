@@ -227,75 +227,37 @@ body > div > header > div.brought-to-you > div > div > div{
     margin: 5px 0 0;
     font-size: 1.2em;
 }
-
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 10px;
-    }
-
-    .title {
-        margin-bottom: 10px;
-    }
-
-    .brought-to-you {
-        text-align: left;
-    }
-
-    .profile {
-        flex-direction: row-reverse;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .profile-info {
-        margin-right: 0;
-        margin-left: 10px;
-    }
-
-    .profile-logo {
-        width: 50px;
-        height: 50px;
-    }
-
     .top-section {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        margin-bottom: 20px;
     }
 
     .top-row, .bottom-row {
+        display: flex;
         flex-direction: column;
+        align-items: center;
         width: 100%;
+        max-width: 100%;
     }
 
     .block {
+        width: 90%;
         margin: 10px 0;
+        text-align: center;
+    }
+
+    .token-placeholder {
         width: 100%;
-    }
-
-    .block-icon {
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
-    }
-
-    .block h2 {
-        font-size: 1.2em;
-    }
-
-    .block p {
-        font-size: 1em;
+        margin: 10px 0;
     }
 
     .tabs {
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .tab {
@@ -309,24 +271,12 @@ body > div > header > div.brought-to-you > div > div > div{
 
     table th, table td {
         padding: 5px;
-    }
-
-    .token-logo {
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-    }
-
-    .social-icons img {
-        width: 20px;
-        height: 20px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
     }
 
     .note {
-        font-size: 0.8em;
-    }
-
-    .token-placeholder {
-        height: 40px;
+        padding: 10px;
+        text-align: center;
     }
 }
