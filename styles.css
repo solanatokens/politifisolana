@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Bebas Neue', sans-serif;
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
@@ -33,51 +33,20 @@ header {
 
 .brought-to-you p {
     margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.brought-to-you img {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 .social-icons img {
     width: 20px;
     margin-left: 10px;
-}
-
-.events {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.event {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    flex: 1;
-    margin: 0 10px;
-}
-
-.summary {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.summary-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    text-align: center;
-    flex: 1;
-    margin: 0 10px;
-}
-
-.show-more {
-    display: block;
-    margin: 0 auto 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
 }
 
 .note {
@@ -106,9 +75,11 @@ header {
 }
 
 .countries {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
+    display: none;
+}
+
+.countries.active {
+    display: block;
 }
 
 table {
@@ -124,6 +95,10 @@ table th, table td {
 
 table th {
     background-color: #f1f1f1;
+}
+
+.positive {
+    color: green;
 }
 
 .negative {
