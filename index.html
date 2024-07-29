@@ -215,39 +215,44 @@
         const placeholders = table.querySelectorAll('.token-placeholder');
         placeholders.forEach(placeholder => placeholder.remove());
     }
-
-    async function populateTable(table, tokens) {
-        for (const token of tokens) {
-            const data = await fetchTokenData(token.contract);
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
+async function populateTable(table, tokens) {
+    for (const token of tokens) {
+        const data = await fetchTokenData(token.contract);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <div style="display: flex; align-items: center;">
                     <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
-                    <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
-                        ${data.name}<br><span>${data.symbol}</span>
-                    </span>
-                </td>
-                <td>${data.marketCap}</td>
-                <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
-                <td>${data.liquidity}</td>
-                <td class="social-icons">
-                    ${data.socials.map(social => {
-                        if (social.type === 'twitter') {
-                            return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter" style="width: 25px; height: 25px;"></a>`;
-                        } else if (social.type === 'telegram') {
-                            return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram" style="width: 25px; height: 25px;"></a>`;
-                        } else {
-                            return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
-                        }
-                    }).join(' ')}
-                    <a href="${data.dexUrl}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener" style="width: 25px; height: 25px;"></a>
-                </td>
-                <td>${data.communityNote}</td>
-            `;
-            table.appendChild(row);
-        }
-        removePlaceholders(table);
+                    <div style="margin-left: 10px;">
+                        <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
+                            ${data.name}<br>
+                            <span style="font-weight: bold;">${data.symbol}</span>
+                        </span>
+                    </div>
+                </div>
+            </td>
+            <td>${data.marketCap}</td>
+            <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+            <td>${data.liquidity}</td>
+            <td class="social-icons">
+                ${data.socials.map(social => {
+                    if (social.type === 'twitter') {
+                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter" style="width: 25px; height: 25px;"></a>`;
+                    } else if (social.type === 'telegram') {
+                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram" style="width: 25px; height: 25px;"></a>`;
+                    } else {
+                        return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
+                    }
+                }).join(' ')}
+                <a href="${data.dexUrl}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener" style="width: 25px; height: 25px;"></a>
+            </td>
+            <td>${data.communityNote}</td>
+        `;
+        table.appendChild(row);
     }
+    removePlaceholders(table);
+}
+
 
     await populateTable(republicanTable, tokens.republican);
     await populateTable(democraticTable, tokens.democratic);
