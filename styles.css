@@ -5,10 +5,6 @@ body {
     padding: 0;
 }
 
-h1{
-    font-size:3em;
-}
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -30,7 +26,6 @@ header {
 .title h1 {
     margin-right: 10px;
 }
-
 .brought-to-you {
     text-align: center;
     margin-bottom: 20px;
@@ -49,7 +44,7 @@ header {
 
 .profile-info p {
     margin: 0;
-    font-size: 1.25em;
+    font-size: 1.25em; /* Adjust as needed */
     font-weight: bold;
 }
 
@@ -65,6 +60,14 @@ header {
 .profile-logo {
     width: 70px;
     height: 70px;
+    border-radius: 50%;
+}
+
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
     border-radius: 50%;
 }
 
@@ -125,7 +128,7 @@ table th {
 }
 
 .token-logo {
-    width: 40px;
+    width: 40px; /* Ajustez la taille selon vos besoins */
     height: 40px;
     margin-right: 10px;
 }
@@ -147,21 +150,30 @@ table th {
     font-weight: bold;
 }
 
+
 .social-icons a {
     display: inline-block;
 }
 
 .social-icons img {
-    width: 25px;
-    height: 25px;
-    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
     border-radius: 50%;
     vertical-align: middle;
 }
 
+#republican-table > tr > td.social-icons > a:nth-child(3) > img {
+    width: 25px;
+    height: 25px;
+}
+
+body > div > header > div.brought-to-you > div > div > div{
+    padding-top:5px;}
+
 .token-placeholder {
     background-color: #e0e0e0;
-    height: 50px;
+    height: 50px; /* Ajustez la hauteur selon vos besoins */
 }
 
 .top-section {
@@ -186,27 +198,28 @@ table th {
     flex: 1;
     margin: 10px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: center; /* Centre le contenu horizontalement */
 }
 
 .block-icon {
     width: 70px;
     height: 70px;
-    margin-right: 20px;
+    margin-bottom: 10px; /* Ajoute un espace entre l'icône et le contenu */
     border-radius: 10px;
 }
 
 .block-content {
     flex: 1;
+    text-align: center; /* Centre le texte */
 }
+
 .block h2 {
     margin: 0;
     font-size: 1.5em;
-    margin-bottom: 10px; /* Ajoutez cette ligne pour créer un espace entre le titre et le contenu */
 }
 
 .block p {
     margin: 5px 0 0;
     font-size: 1.2em;
-    word-break: break-word; /* Ajoutez cette ligne si vous souhaitez forcer un retour à la ligne si nécessaire */
 }
