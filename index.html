@@ -120,7 +120,7 @@
                 return {
                     name: tokenData ? tokenData.baseToken.name : 'N/A',
                     symbol: tokenData ? tokenData.baseToken.symbol : 'N/A',
-                    logo: tokenData ? tokenData.baseToken.logoURI : '',
+                    logo: tokenData ? tokenData.info.imageUrl : '',
                     marketCap: tokenData ? tokenData.fdv : 'N/A',
                     volume24h: tokenData ? tokenData.volume.h24 : 'N/A',
                     priceChange24h: tokenData ? tokenData.priceChange.h24 : 'N/A',
