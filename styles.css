@@ -227,6 +227,7 @@ body > div > header > div.brought-to-you > div > div > div{
     margin: 5px 0 0;
     font-size: 1.2em;
 }
+
 @media (max-width: 768px) {
     .top-section {
         display: flex;
@@ -283,19 +284,5 @@ body > div > header > div.brought-to-you > div > div > div{
     .countries.active table th:nth-child(6),
     .countries.active table td:nth-child(6) {
         display: none; /* Hide the "Community Note" column on mobile */
-    }
-    
-    /* Center table content */
-    table th, table td {
-        text-align: center;
-    }
-    
-    table th:nth-child(1), table td:nth-child(1) {
-        text-align: left;
-    }
-    
-    table .social-icons {
-        display: flex;
-        justify-content: center;
     }
 }
