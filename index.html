@@ -27,11 +27,14 @@
 
         <section class="tabs">
             <button class="tab active" onclick="showTab('republican')">
-                    <img src="https://solanatokens.github.io/politifisolana/republican.png" alt="Republican" class="tab-icon"> Republican</button>
-            <button class="tab" onclick="showTab('democratic')">        <img src="https://solanatokens.github.io/politifisolana/donkey.jpg" alt="Democratic" class="tab-icon"> Democratic
-</button>
-            <button class="tab" onclick="showTab('meme')">        <img src="https://solanatokens.github.io/politifisolana/meme.png" alt="Meme" class="tab-icon"> Meme
-</button>
+                <img src="https://solanatokens.github.io/politifisolana/republican.png" alt="Republican" class="tab-icon"> Republican
+            </button>
+            <button class="tab" onclick="showTab('democratic')">
+                <img src="https://solanatokens.github.io/politifisolana/donkey.jpg" alt="Democratic" class="tab-icon"> Democratic
+            </button>
+            <button class="tab" onclick="showTab('meme')">
+                <img src="https://solanatokens.github.io/politifisolana/meme.png" alt="Meme" class="tab-icon"> Meme
+            </button>
         </section>
 
         <section id="republican" class="countries active">
@@ -103,12 +106,11 @@
         };
 
         function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        alert('Contract address copied to clipboard');
-    });
-}
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Contract address copied to clipboard');
+            });
+        }
 
-        
         function showTab(tab) {
             document.querySelectorAll('.countries').forEach(section => {
                 section.classList.remove('active');
@@ -155,103 +157,103 @@
         }
 
         async function displayTokens() {
-    const republicanTable = document.getElementById('republican-table');
-    const democraticTable = document.getElementById('democratic-table');
-    const memeTable = document.getElementById('meme-table');
+            const republicanTable = document.getElementById('republican-table');
+            const democraticTable = document.getElementById('democratic-table');
+            const memeTable = document.getElementById('meme-table');
 
-    for (const token of tokens.republican) {
-        const data = await fetchTokenData(token.contract);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>
-                <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
-                <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
-                    ${data.name}<br><span>${data.symbol}</span>
-                </span>
-            </td>
-            <td>${data.marketCap}</td>
-            <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
-            <td>${data.liquidity}</td>
-            <td>
-                ${data.socials.map(social => {
-                    if (social.type === 'twitter') {
-                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>`;
-                    } else if (social.type === 'telegram') {
-                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>`;
-                    } else {
-                        return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
-                    }
-                }).join(' ')}
-                <a href="${data.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener"></a>
-            </td>
-            <td>${data.communityNote}</td>
-        `;
-        republicanTable.appendChild(row);
-    }
+            for (const token of tokens.republican) {
+                const data = await fetchTokenData(token.contract);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <img src="https://solanatokens.github.io/politifisolana/republican.png" alt="Republican" class="section-icon">
+                        <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
+                        <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
+                            ${data.name}<br><span>${data.symbol}</span>
+                        </span>
+                    </td>
+                    <td>${data.marketCap}</td>
+                    <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+                    <td>${data.liquidity}</td>
+                    <td>
+                        ${data.socials.map(social => {
+                            if (social.type === 'twitter') {
+                                return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>`;
+                            } else if (social.type === 'telegram') {
+                                return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>`;
+                            } else {
+                                return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
+                            }
+                        }).join(' ')}
+                        <a href="${data.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener"></a>
+                    </td>
+                    <td>${data.communityNote}</td>
+                `;
+                republicanTable.appendChild(row);
+            }
 
-    for (const token of tokens.democratic) {
-        const data = await fetchTokenData(token.contract);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>
-                <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
-                <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
-                    ${data.name}<br><span>${data.symbol}</span>
-                </span>
-            </td>
-            <td>${data.marketCap}</td>
-            <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
-            <td>${data.liquidity}</td>
-            <td>
-                ${data.socials.map(social => {
-                    if (social.type === 'twitter') {
-                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>`;
-                    } else if (social.type === 'telegram') {
-                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>`;
-                    } else {
-                        return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
-                    }
-                }).join(' ')}
-                <a href="${data.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener"></a>
-            </td>
-            <td>${data.communityNote}</td>
-        `;
-        democraticTable.appendChild(row);
-    }
+            for (const token of tokens.democratic) {
+                const data = await fetchTokenData(token.contract);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <img src="https://solanatokens.github.io/politifisolana/donkey.jpg" alt="Democratic" class="section-icon">
+                        <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
+                        <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
+                            ${data.name}<br><span>${data.symbol}</span>
+                        </span>
+                    </td>
+                    <td>${data.marketCap}</td>
+                    <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+                    <td>${data.liquidity}</td>
+                    <td>
+                        ${data.socials.map(social => {
+                            if (social.type === 'twitter') {
+                                return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>`;
+                            } else if (social.type === 'telegram') {
+                                return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>`;
+                            } else {
+                                return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
+                            }
+                        }).join(' ')}
+                        <a href="${data.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener"></a>
+                    </td>
+                    <td>${data.communityNote}</td>
+                `;
+                democraticTable.appendChild(row);
+            }
 
-    for (const token of tokens.meme) {
-        const data = await fetchTokenData(token.contract);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>
-                <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
-                <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
-                    ${data.name}<br><span>${data.symbol}</span>
-                </span>
-            </td>
-            <td>${data.marketCap}</td>
-            <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
-            <td>${data.liquidity}</td>
-            <td>
-                ${data.socials.map(social => {
-                    if (social.type === 'twitter') {
-                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>`;
-                    } else if (social.type === 'telegram') {
-                        return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>`;
-                    } else {
-                        return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
-                    }
-                }).join(' ')}
-                <a href="${data.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener"></a>
-            </td>
-            <td>${data.communityNote}</td>
-        `;
-        memeTable.appendChild(row);
-    }
-}
-
-displayTokens();
-
+            for (const token of tokens.meme) {
+                const data = await fetchTokenData(token.contract);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <img src="https://solanatokens.github.io/politifisolana/meme.png" alt="Meme" class="section-icon">
+                        <img src="${data.logo}" alt="${data.name} Logo" class="token-logo">
+                        <span onclick="copyToClipboard('${token.contract}')" style="cursor:pointer;">
+                            ${data.name}<br><span>${data.symbol}</span>
+                        </span>
+                    </td>
+                    <td>${data.marketCap}</td>
+                    <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+                    <td>${data.liquidity}</td>
+                    <td>
+                        ${data.socials.map(social => {
+                            if (social.type === 'twitter') {
+                                return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>`;
+                            } else if (social.type === 'telegram') {
+                                return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>`;
+                            } else {
+                                return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
+                            }
+                        }).join(' ')}
+                        <a href="${data.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/dexscreener-e69e013b.png" alt="DexScreener"></a>
+                    </td>
+                    <td>${data.communityNote}</td>
+                `;
+                memeTable.appendChild(row);
+            }
+        }
 
         displayTokens();
     </script>
