@@ -6,10 +6,6 @@
     <title>PolitiFi Solana</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -32,6 +28,7 @@
         <section class="tabs">
             <button class="tab active" onclick="showTab('republican')">Republican</button>
             <button class="tab" onclick="showTab('democratic')">Democratic</button>
+            <button class="tab" onclick="showTab('meme')">Meme</button>
         </section>
 
         <section id="republican" class="countries active">
@@ -69,6 +66,24 @@
                 </tbody>
             </table>
         </section>
+
+        <section id="meme" class="countries">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Countries</th>
+                        <th>Mcap</th>
+                        <th>24h %</th>
+                        <th>Liquidity</th>
+                        <th>Socials</th>
+                        <th>Community Note</th>
+                    </tr>
+                </thead>
+                <tbody id="meme-table">
+                    <!-- Tokens will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
     </div>
 
     <script>
@@ -78,6 +93,9 @@
             ],
             democratic: [
                 { name: 'Kamala', contract: '2tvQMBiB4aoxsXhgAPWSUpE1Cas5eSU3bNWa6p6Rpump' }
+            ],
+            meme: [
+                { name: 'MemeToken', contract: '8pWBWofJZK8DVS1xvsEobaFKQ3pjiqPwiWwH2TWrccvZ' }
             ]
         };
 
@@ -97,10 +115,12 @@
             try {
                 const response = await fetch(url);
                 const data = await response.json();
+                console.log(data); // Debug output
                 const tokenData = data.pairs.find(pair => pair.baseToken.address.toLowerCase() === contract.toLowerCase());
                 return {
                     name: tokenData ? tokenData.baseToken.name : 'N/A',
                     symbol: tokenData ? tokenData.baseToken.symbol : 'N/A',
+                    logo: tokenData ? tokenData.baseToken.logoURI : '',
                     marketCap: tokenData ? tokenData.fdv : 'N/A',
                     volume24h: tokenData ? tokenData.volume.h24 : 'N/A',
                     priceChange24h: tokenData ? tokenData.priceChange.h24 : 'N/A',
@@ -113,6 +133,7 @@
                 return {
                     name: 'N/A',
                     symbol: 'N/A',
+                    logo: '',
                     marketCap: 'N/A',
                     volume24h: 'N/A',
                     priceChange24h: 'N/A',
@@ -126,12 +147,13 @@
         async function displayTokens() {
             const republicanTable = document.getElementById('republican-table');
             const democraticTable = document.getElementById('democratic-table');
+            const memeTable = document.getElementById('meme-table');
 
             for (const token of tokens.republican) {
                 const data = await fetchTokenData(token.contract);
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${data.name}<br><span>${data.symbol}</span></td>
+                    <td><img src="${data.logo}" alt="${data.name} Logo" class="token-logo"> ${data.name}<br><span>${data.symbol}</span></td>
                     <td>${data.marketCap}</td>
                     <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
                     <td>${data.liquidity}</td>
@@ -145,7 +167,7 @@
                 const data = await fetchTokenData(token.contract);
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${data.name}<br><span>${data.symbol}</span></td>
+                    <td><img src="${data.logo}" alt="${data.name} Logo" class="token-logo"> ${data.name}<br><span>${data.symbol}</span></td>
                     <td>${data.marketCap}</td>
                     <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
                     <td>${data.liquidity}</td>
@@ -153,6 +175,20 @@
                     <td>${data.communityNote}</td>
                 `;
                 democraticTable.appendChild(row);
+            }
+
+            for (const token of tokens.meme) {
+                const data = await fetchTokenData(token.contract);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${data.logo}" alt="${data.name} Logo" class="token-logo"> ${data.name}<br><span>${data.symbol}</span></td>
+                    <td>${data.marketCap}</td>
+                    <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
+                    <td>${data.liquidity}</td>
+                    <td>${data.socials.map(social => `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`).join(' ')}</td>
+                    <td>${data.communityNote}</td>
+                `;
+                memeTable.appendChild(row);
             }
         }
 
