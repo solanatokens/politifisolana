@@ -185,11 +185,22 @@
                     <td>${data.marketCap}</td>
                     <td class="${data.priceChange24h >= 0 ? 'positive' : 'negative'}">${data.priceChange24h}%</td>
                     <td>${data.liquidity}</td>
-                    <td>${data.socials.map(social => `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`).join(' ')}</td>
+<td>
+    ${data.socials.map(social => {
+        if (social.type === 'twitter') {
+            return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/x-icon.png" alt="Twitter"></a>`;
+        } else if (social.type === 'telegram') {
+            return `<a href="${social.url}" target="_blank"><img src="https://solanatokens.github.io/politifisolana/tg-icon.png" alt="Telegram"></a>`;
+        } else {
+            return `<a href="${social.url}" target="_blank"><img src="path/to/${social.type}-icon.png" alt="${social.type}"></a>`;
+        }
+    }).join(' ')}
+</td>
                     <td>${data.communityNote}</td>
                 `;
                 memeTable.appendChild(row);
             }
+                  
         }
 
         displayTokens();
