@@ -26,22 +26,44 @@ header {
 .title h1 {
     margin-right: 10px;
 }
-
 .brought-to-you {
-    text-align: right;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.brought-to-you .profile {
+.profile {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
-.brought-to-you img {
-    margin-left: 10px;
-    width: 40px;
-    height: 40px;
+.profile-info {
+    text-align: left;
+    margin-right: 15px;
+}
+
+.profile-info p {
+    margin: 0;
+    font-size: 1.25em; /* Adjust as needed */
+    font-weight: bold;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons img {
+    width: 25px;
+    height: 25px;
+}
+
+.profile-logo {
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
 }
+
 
 .social-icons img {
     width: 20px;
@@ -123,4 +145,9 @@ table th {
     margin-left: 5px;
     border-radius: 50%;
     vertical-align: middle;
+}
+
+#republican-table > tr > td.social-icons > a:nth-child(3) > img {
+    width: 25px;
+    height: 25px;
 }
