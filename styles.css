@@ -37,6 +37,11 @@ header {
     align-items: center;
 }
 
+.profile {
+    display: flex;
+    align-items: center;
+}
+
 .brought-to-you img {
     margin-left: 10px;
     width: 40px;
@@ -119,4 +124,15 @@ table th {
     height: 30px;
     margin-right: 10px;
     vertical-align: middle;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
 }
