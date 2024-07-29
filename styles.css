@@ -227,3 +227,106 @@ body > div > header > div.brought-to-you > div > div > div{
     margin: 5px 0 0;
     font-size: 1.2em;
 }
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        margin-bottom: 10px;
+    }
+
+    .brought-to-you {
+        text-align: left;
+    }
+
+    .profile {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .profile-info {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+
+    .profile-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .top-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .top-row, .bottom-row {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .block {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .block-icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .block h2 {
+        font-size: 1.2em;
+    }
+
+    .block p {
+        font-size: 1em;
+    }
+
+    .tabs {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tab {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table th, table td {
+        padding: 5px;
+    }
+
+    .token-logo {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+    }
+
+    .social-icons img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .note {
+        font-size: 0.8em;
+    }
+
+    .token-placeholder {
+        height: 40px;
+    }
+}
