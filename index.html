@@ -126,6 +126,56 @@
     </div>
 
     <script>
+
+    function formatNumber(number) {
+        if (number >= 1000000) {
+            return (number / 1000000).toFixed(1) + 'M';
+        } else if (number >= 1000) {
+            return (number / 1000).toFixed(1) + 'K';
+        } else {
+            return number;
+        }
+    }
+
+    function updateCountdown() {
+        const electionDate = new Date('November 5, 2024 00:00:00').getTime();
+        const now = new Date().getTime();
+        const distance = electionDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerText = `${days} D, ${hours} H, ${minutes} M, ${seconds} S`;
+
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.getElementById('countdown').innerText = 'Elections are over';
+        }
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Fetch data and update the blocks
+    async function fetchData() {
+        // Fetch your token data and calculate totals
+        // Assuming you have functions to fetch and calculate these values
+        const totalMarketCap = 10000000; // Replace with actual calculation
+        const total24hVolume = 500000; // Replace with actual calculation
+        const topGainerMc = 'Token A'; // Replace with actual token data
+        const topGainerVolume = 'Token B'; // Replace with actual token data
+        const topMarketCap = 'Token C'; // Replace with actual token data
+
+        document.getElementById('total-market-cap').innerText = `$${formatNumber(totalMarketCap)}`;
+        document.getElementById('total-24h-volume').innerText = `$${formatNumber(total24hVolume)}`;
+        document.getElementById('top-gainer-mc').innerText = topGainerMc;
+        document.getElementById('top-gainer-volume').innerText = topGainerVolume;
+        document.getElementById('top-market-cap').innerText = topMarketCap;
+    }
+
+    fetchData();
+
         const tokens = {
             republican: [
                 { name: 'Trump', contract: '4h8LjZWUfUQVgbEZ29UzTuGXNW6rwrJis78ZU66ekkPV' }
