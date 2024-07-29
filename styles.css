@@ -82,7 +82,8 @@ header {
     margin-bottom: 20px;
 }
 
-.tab {
+.tab {    font-size: 1em;
+    font-weight: bold;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
